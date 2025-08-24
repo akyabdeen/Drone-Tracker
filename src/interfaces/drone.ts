@@ -5,7 +5,7 @@ export interface DroneFeature {
         serial: string;
         registration: string;
         Name: string;
-        altitute: number;
+        altitude: number;
         pilot: string;
         organization: string;
         yaw: number;

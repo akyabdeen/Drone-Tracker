@@ -27,10 +27,6 @@ export function createDronePopup(drone: DroneData): string {
           <div class="font-bold text-sm">${flightTime}</div>
         </div>
       </div>
-      <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 
-                  border-l-8 border-l-transparent 
-                  border-r-8 border-r-transparent 
-                  border-t-8 border-t-black"></div>
     </div>
   `;
 }

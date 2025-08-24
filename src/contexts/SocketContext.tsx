@@ -46,7 +46,7 @@ export function SocketContextProvider({ children }: { children: ReactNode }) {
             const newDrone: DroneData = {
               name: drone.properties.Name,
               registration: drone.properties.registration,
-              altitude: drone.properties.altitute,
+              altitude: drone.properties.altitude,
               organization: drone.properties.organization,
               pilot: drone.properties.pilot,
               firstAppearance: new Date(),
