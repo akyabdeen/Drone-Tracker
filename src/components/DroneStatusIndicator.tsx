@@ -9,7 +9,7 @@ const DroneStatusIndicator = () => {
     
       <div className="flex items-center px-3 py-2">
         <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-xs font-bold text-white mr-3">
-          {cannotFlyCount(Array.from(drones.values()))}
+          {cannotFlyCount(Array.from(drones.keys()))}
         </div>
         <span className="text-sm font-medium">Unauthorized Flying</span>
       </div>

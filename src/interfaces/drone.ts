@@ -26,7 +26,7 @@ export interface DroneData {
     organization: string;
     pilot: string;
     path: [number, number][];
-    registration: string;
+    serial: string;
     altitude: number;
     firstAppearance: Date;
     currentPosition: [number, number];

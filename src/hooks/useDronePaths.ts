@@ -12,12 +12,12 @@ export const useDronePaths = (
   useEffect(() => {
     if (!map || !isMapLoaded) return;
 
-    drones.forEach((drone: DroneData, serial: string) => {
-      const sourceId = `drone-path-${serial}`;
-      const layerId = `drone-layer-${serial}`;
-      const canFly = canDroneFly(drone.registration);
+    drones.forEach((drone: DroneData, registration_code: string) => {
+      const sourceId = `drone-path-${registration_code}`;
+      const layerId = `drone-layer-${registration_code}`;
+      const canFly = canDroneFly(registration_code);
       const pathColor = canFly ? SAGER_GREEN : SAGER_RED;
-      const pathGeoJSON = createPathGeoJSON(serial, canFly, drone);
+      const pathGeoJSON = createPathGeoJSON(registration_code, canFly, drone);
 
       if (map.getSource(sourceId)) {
         (map.getSource(sourceId) as mapboxgl.GeoJSONSource).setData(pathGeoJSON);

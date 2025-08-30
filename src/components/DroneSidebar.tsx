@@ -10,8 +10,8 @@ const DroneSidebar = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => voi
   const { drones } = useSocketDroneData();
   const { selectedDrone, setSelectedDrone, toggleIsTracking, isTracking } = useSelectedDrone();
 
-  const handleToggleTracking = (drone: DroneData, serial: string) => {
-    setSelectedDrone({ data: drone, serial });
+  const handleToggleTracking = (drone: DroneData, registration_code: string) => {
+    setSelectedDrone({ data: drone, registration_code });
     toggleIsTracking();
   };
 
@@ -19,11 +19,11 @@ const DroneSidebar = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => voi
     const droneEntries = Array.from(drones.entries());
     if (!selectedDrone) return droneEntries;
 
-    const selected = droneEntries.find(([_, drone]) => 
-      drone.registration === selectedDrone.data.registration
+    const selected = droneEntries.find(([registration_code]) => 
+      registration_code === selectedDrone.registration_code
     );
-    const others = droneEntries.filter(([_, drone]) => 
-      drone.registration !== selectedDrone.data.registration
+    const others = droneEntries.filter(([registration_code]) => 
+      registration_code !== selectedDrone.registration_code
     );
 
     return selected ? [selected, ...others] : droneEntries;
@@ -77,14 +77,14 @@ const DroneSidebar = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => voi
       <div className="flex-1 overflow-y-auto custom-scrollbar">
         {activeTab === 'drones' && (
           <div className="divide-y divide-sager-dark-gray">
-            {sortedDrones.map(([serial, drone]) => {
-              const authorized = canDroneFly(drone.registration);
-              const isSelected = selectedDrone?.data.registration === drone.registration;
+            {sortedDrones.map(([registration_code, drone]) => {
+              const authorized = canDroneFly(registration_code);
+              const isSelected = selectedDrone?.registration_code === registration_code;
               
               return (
                 <div
-                  key={serial}
-                  onClick={() => handleToggleTracking(drone, serial)}
+                  key={registration_code}
+                  onClick={() => handleToggleTracking(drone, registration_code)}
                   className={`p-3 sm:p-4 transition-colors cursor-pointer ${
                     isSelected 
                       ? 'bg-sager-dark-gray border-l-4 border-sager-light-gray shadow-lg' 
@@ -104,7 +104,7 @@ const DroneSidebar = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => voi
                     </div>
                     <div className="flex items-center gap-1 sm:gap-2 ml-2">
                       <button
-                        onClick={() => handleToggleTracking(drone, serial)}
+                        onClick={() => handleToggleTracking(drone, registration_code)}
                         className={`p-1.5 sm:p-2 rounded-full transition-colors ${
                           isSelected && isTracking
                             ? 'bg-sager-green text-sager-black'
@@ -126,11 +126,11 @@ const DroneSidebar = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => voi
                   <div className="grid grid-cols-2 gap-2 sm:gap-3 text-xs sm:text-sm">
                     <div>
                       <p className="text-sager-lighter-gray mb-0.5 sm:mb-1 text-xs">Serial #</p>
-                      <p className="font-medium truncate">{serial}</p>
+                      <p className="font-medium truncate">{drone.serial}</p>
                     </div>
                     <div>
                       <p className="text-sager-lighter-gray mb-0.5 sm:mb-1 text-xs">Registration #</p>
-                      <p className="font-medium truncate">{drone.registration || 'N/A'}</p>
+                      <p className="font-medium truncate">{registration_code || 'N/A'}</p>
                     </div>
                     <div>
                       <p className="text-sager-lighter-gray mb-0.5 sm:mb-1 text-xs">Pilot</p>

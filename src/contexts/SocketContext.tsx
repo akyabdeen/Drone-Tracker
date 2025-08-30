@@ -33,10 +33,10 @@ export function SocketContextProvider({ children }: { children: ReactNode }) {
         const updated = new Map(prev);
 
         features.forEach((drone) => {
-          const serial = drone.properties.serial;
+          const registration = drone.properties.registration;
           const coord = drone.geometry.coordinates;
 
-          let prevDroneData = updated.get(serial);
+          let prevDroneData = updated.get(registration);
 
           if (prevDroneData) {
             // update already existing data in state
@@ -45,7 +45,7 @@ export function SocketContextProvider({ children }: { children: ReactNode }) {
           } else {
             const newDrone: DroneData = {
               name: drone.properties.Name,
-              registration: drone.properties.registration,
+              serial: drone.properties.serial,
               altitude: drone.properties.altitude,
               organization: drone.properties.organization,
               pilot: drone.properties.pilot,
@@ -54,7 +54,7 @@ export function SocketContextProvider({ children }: { children: ReactNode }) {
               path: [coord],
             };
 
-            updated.set(serial, newDrone);
+            updated.set(registration, newDrone);
           }
         });
 

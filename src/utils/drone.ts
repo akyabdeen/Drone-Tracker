@@ -7,9 +7,9 @@ export function canDroneFly(droneRegistration: string) {
   return id[0] == "B";
 }
 
-export function cannotFlyCount(data: DroneData[]) {
-  return data.reduce((count, drone) => {
-    return canDroneFly(drone.registration) ? count : count + 1;
+export function cannotFlyCount(data: string[]) {
+  return data.reduce((count, drone_registration) => {
+    return canDroneFly(drone_registration) ? count : count + 1;
   }, 0);
 }
 
@@ -19,7 +19,7 @@ export function minutesSince(date: Date) {
   return Math.floor(diffMs / 1000 / 60);
 }
 
-export function createPathGeoJSON(serial: string, canFly: boolean, drone: DroneData) {
+export function createPathGeoJSON(registration: string, canFly: boolean, drone: DroneData) {
   return {
     type: "Feature" as const,
     geometry: {
@@ -27,9 +27,9 @@ export function createPathGeoJSON(serial: string, canFly: boolean, drone: DroneD
       coordinates: drone.path,
     },
     properties: {
-      serial,
+      serial: drone.serial,
       canFly,
-      registration: drone.registration,
+      registration,
     } as {[key: string] : any},
   };
 }

@@ -2,8 +2,8 @@ import { createContext, useContext, useState, type ReactNode } from "react";
 import type { DroneData } from "../interfaces/drone";
 
 interface DroneCenteringContextType {
-    selectedDrone: {serial: string, data: DroneData} | null;
-    setSelectedDrone: (selectedDrone: {serial: string, data: DroneData}) => void;
+    selectedDrone: {registration_code: string, data: DroneData} | null;
+    setSelectedDrone: (selectedDrone: {registration_code: string, data: DroneData}) => void;
     isTracking: boolean;
     toggleIsTracking: () => void;
 }
@@ -11,7 +11,7 @@ interface DroneCenteringContextType {
 const DroneCenteringContext = createContext<DroneCenteringContextType | undefined>(undefined);
 
 export function DroneCenteringContextProvider({children}: {children: ReactNode}) {
-    const [selectedDrone, setSelectedDrone] = useState<{serial: string, data: DroneData} | null>(null);
+    const [selectedDrone, setSelectedDrone] = useState<{registration_code: string, data: DroneData} | null>(null);
     const [isTracking, setIsTracking] = useState<boolean>(false);
 
     const toggleIsTracking = () => {

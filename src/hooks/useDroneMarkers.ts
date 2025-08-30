@@ -14,13 +14,13 @@ export const useDroneMarkers = (
   const markersRef = useRef<Map<string, Marker>>(new Map());
 
   useEffect(() => {
-    drones.forEach((drone: DroneData, serial: string) => {
+    drones.forEach((drone: DroneData, registration_code: string) => {
       if (!map || !isMapLoaded) return;
 
       const currentMarkers = new Set(markersRef.current.keys());
 
-      const canFly = canDroneFly(drone.registration);
-      let marker = markersRef.current.get(serial);
+      const canFly = canDroneFly(registration_code);
+      let marker = markersRef.current.get(registration_code);
 
       if (marker) {
         marker.setLngLat(drone.currentPosition);
@@ -28,7 +28,7 @@ export const useDroneMarkers = (
       } else {
         const marker = createMapMarker(map, canFly, drone, () => {
           const seletedDroneData = {
-            serial,
+            registration_code,
             data: drone,
           };
           setSelectedDrone(seletedDroneData);
@@ -39,10 +39,10 @@ export const useDroneMarkers = (
             duration: 500,
           });
         });
-        markersRef.current.set(serial, marker);
+        markersRef.current.set(registration_code, marker);
       }
 
-      currentMarkers.delete(serial);
+      currentMarkers.delete(registration_code);
     });
   }, [map, drones, isMapLoaded]);
 };
